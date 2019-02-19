@@ -11,6 +11,10 @@ After installation open Vim and Type:
 ```
 :PluginInstall
 ```
+You might get an error like this:<br>
+**Command failed**: chown -H -R ubuntu:ubuntu /home/ubuntu/<br>
+Just Ignore it.<br>
+
 For help: <br>
 ```
 ./vim.py --help
