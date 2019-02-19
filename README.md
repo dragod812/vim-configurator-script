@@ -8,7 +8,9 @@ wget https://raw.githubusercontent.com/dragod812/vim-configurator-script/master/
 sudo python3 ./vim.py -u "<username>"
 ```
 You might get an error like this:<br>
-*Command failed: chown -H -R <username>:<username> /home/<username>/*<br>
+```
+Command failed: chown -H -R <username>:<username> /home/<username>/
+```
 Just Ignore it.<br><br>
 After installation open Vim and Type:
 ```
