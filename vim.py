@@ -59,7 +59,8 @@ class Vim(object):
                           'https://github.com/scrooloose/nerdtree',
                           'https://github.com/klen/python-mode.git',
                           'https://github.com/Lokaltog/vim-powerline.git',
-                          'https://github.com/jistr/vim-nerdtree-tabs.git']
+                          'https://github.com/jistr/vim-nerdtree-tabs.git',
+                          'https://github.com/VundleVim/Vundle.vim.git']
 
         self.apt_packages = 'vim git-core'
 
@@ -129,6 +130,9 @@ class Vim(object):
         for each in self.git_repos:
             self.run_command('git clone ' + each, cwd_directory=self.dir_user +
                              '.vim/bundle/')
+        #python-mode fix
+        self.run_command('git submodule update --init --recursive', cwd_directory=self.dir_user + '.vim/bundle/python-mode')
+
 
         # vim auto autoload file
         urllib.request.urlretrieve('https://tpo.pe/pathogen.vim',
@@ -137,19 +141,12 @@ class Vim(object):
 
         # .vimrc for your machine
         urllib.request.urlretrieve('https://raw.githubusercontent.com/' +
-                                   'thesheff17/youtube/master/vim/vimrc',
+                                   'dragod812/vim-configurator-script/master/vimrc',
                                    self.dir_user + '.vimrc')
-
-        # color file
-        urllib.request.urlretrieve('https://raw.githubusercontent.com/' +
-                                   'thesheff17/youtube/master/vim/' +
-                                   'wombat256mod.vim',
-                                   self.dir_user + '.vim/colors/' +
-                                   'wombat256mod.vim')
 
         # ftp plugin
         urllib.request.urlretrieve('https://raw.githubusercontent.com/' +
-                                   'thesheff17/youtube/master/vim/' +
+                                   'dragod812/vim-configurator-script/master/' +
                                    'python_editing.vim',
                                    self.dir_user +
                                    '.vim/ftplugin/python_editing.vim')
