@@ -248,6 +248,7 @@ set clipboard=unnamedplus
 " load up the nerd tree
 autocmd vimenter * NERDTree
 map <Leader>t <plug>NERDTreeTabsToggle<CR>
+map <Leader>x <plug>NERDTreeFocusToggle<CR>
 
 " move nerdtree to the right
 let g:NERDTreeWinPos = "right"
