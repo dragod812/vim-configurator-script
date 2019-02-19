@@ -1,9 +1,15 @@
 # vim-configurator-script
 ## Configures Vim on any machine as per my needs.
-<br>Run the following Command: <br>
+Make sure you have Python3 Installed.
+<br>Run the following Commands: <br>
 ```
 wget https://raw.githubusercontent.com/dragod812/vim-configurator-script/master/vim.py
-sudo ./vim.py -u "username"
+
+sudo python3 ./vim.py -u "ubuntu"
+```
+After installation open Vim and Type:
+```
+:PluginInstall
 ```
 For help: <br>
 ```
