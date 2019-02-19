@@ -3,11 +3,11 @@
 <br>Run the following Command: <br>
 ```
 wget https://raw.githubusercontent.com/dragod812/vim-configurator-script/master/vim.py
-*sudo ./vim.py -u "username"*<br><br>
+sudo ./vim.py -u "username"
 ```
 For help: <br>
 ```
-*./vim.py --help*
+./vim.py --help
 ```
 <br><br>
  **Credits: thesheff17**
