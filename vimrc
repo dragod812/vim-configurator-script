@@ -12,6 +12,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'rainglow/vim'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'valloric/youcompleteme'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -165,7 +167,6 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set shiftround
-set expandtab
 
 " Make search case insensitive
 set hlsearch
