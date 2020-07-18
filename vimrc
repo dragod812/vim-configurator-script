@@ -10,9 +10,17 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'fatih/vim-go'
 Plugin 'rainglow/vim'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'valloric/youcompleteme'
+Plugin 'scrooloose/syntastic'
+Plugin 'vim-jp/vim-go-extra'
+Plugin 'majutsushi/tagbar'
+Plugin 'rjohnsondev/vim-compiler-go'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-notes'
+Plugin 'tpope/vim-surround'
+Plugin 'zeekay/vim-beautify'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -153,7 +161,6 @@ set number " show line numbers
 set tw=79 " width of document (used by gd)
 set nowrap " don't automatically wrap on load
 set fo-=t " don't automatically wrap text when typing
-set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
 
@@ -170,6 +177,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set shiftround
+set relativenumber
 
 " Make search case insensitive
 set hlsearch
@@ -247,7 +255,6 @@ set nofoldenable
 set wildmenu
 set wildmode=list:longest,full
 
-set clipboard=unnamedplus
 
 " load up the nerd tree
 autocmd vimenter * NERDTree
@@ -268,3 +275,22 @@ set pastetoggle=<F2>
 highlight SpecialKey ctermfg=1
 set list
 set listchars=tab:>-
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+set clipboard=unnamed
+
+" Automagically run goimports on save
+let g:go_fmt_command = "goimports"
+
+" Run lint and vet on save
+let g:go_metalinter_autosave = 1
+" vim-go-extra
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
