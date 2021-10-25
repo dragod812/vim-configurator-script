@@ -22,5 +22,8 @@ For help: <br>
 ```
 ./vim.py --help
 ```
+
+For MacOS -
+replace the /home/ for directory inside the vim.py files with /Users/. 
 <br><br>
  **Credits: thesheff17**
