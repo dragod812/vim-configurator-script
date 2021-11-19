@@ -1,6 +1,6 @@
 -- install carbiner and hammerspoon
--- map the capslock key to F18, map the escape key to capslock
--- paste following code in hammerspoon config file
+-- map the capslock key F18, map the escape key to capslock
+-- paste following document in hammerspoon config
 -- A variable for the Hyper Mode
 local k = hs.hotkey.modal.new({}, 'F17')
 
@@ -16,8 +16,17 @@ local cmd_opt_ctrl_shift_keys = {
 	['t'] = true,
 	['v'] = true,
 	['z'] = true,
+  ['/'] = true
+}
+
+local custom_mapped_keys = {
 	['space'] = true,
   ['delete'] = true,
+  ['w'] = true,
+  ['e'] = true,
+  ['b'] = true,
+  ['4'] = true,
+  ['0'] = true,
 }
 
 -- Hyper mode - Substitute keys for direction
@@ -48,6 +57,20 @@ local hyper = function(isdown)
         event = hs.eventtap.event.newKeyEvent( {'cmd', 'shift'}, key, isdown)
       elseif key == 'delete' then
         event = hs.eventtap.event.newKeyEvent( {'alt'}, 'delete', isdown)
+      elseif key == 'e' or key == 'w' then
+        event = hs.eventtap.event.newKeyEvent( {'alt'}, 'right', isdown)
+      elseif k.second_trigger and key == 'd' then
+        event = hs.eventtap.event.newKeyEvent( {}, 'delete', isdown)
+      elseif key == 'd' then
+        hs.eventtap.event.newKeyEvent( {'cmd'}, 'left', isdown):post()
+        event = hs.eventtap.event.newKeyEvent( {'cmd', 'shift'}, 'right', isdown)
+        k.second_trigger = true
+      elseif key == 'b' then
+        event = hs.eventtap.event.newKeyEvent( {'alt'}, 'left', isdown)
+      elseif key == '4' then
+        event = hs.eventtap.event.newKeyEvent( {'cmd'}, 'right', isdown)
+      elseif key == '0' then
+        event = hs.eventtap.event.newKeyEvent( {'cmd'}, 'left', isdown)
       else
         event = hs.eventtap.event.newKeyEvent( {'cmd', 'alt', 'shift', 'ctrl'}, key, isdown)
       end
@@ -74,12 +97,14 @@ local combined_keys = {}
 for k,v in pairs(cmd_opt_ctrl_shift_keys) do table.insert(combined_keys, k) end
 for k,v in pairs(cmd_shift_keys) do table.insert(combined_keys, k) end
 for k,v in pairs(direction_keys) do table.insert(combined_keys, k) end
+for k,v in pairs(custom_mapped_keys) do table.insert(combined_keys, k) end
 
 for index, key in pairs(combined_keys) do hyperBind(key) end
 
 -- Enter Hyper Mode when F18 (Hyper/Capslock) is pressed
 local pressedF18 = function()
   k.triggered = false
+  k.second_trigger = false
   k:enter()
 end
 
@@ -92,5 +117,15 @@ local releasedF18 = function()
   end
 end
 
+local shiftEscape = function()
+  k:exit()
+  if not k.triggered then
+    hs.eventtap.keyStroke({'shift'}, 'ESCAPE')
+  end
+end
+
 -- Bind the Hyper key
 local f18 = hs.hotkey.bind({}, 'F18', pressedF18, releasedF18)
+
+-- for shortcuts with escape
+hs.hotkey.bind({'shift'}, 'F18', pressedF18, shiftEscape)
