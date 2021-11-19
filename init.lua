@@ -1,6 +1,10 @@
+-- install carbiner and hammerspoon
+-- map the capslock key to F18, map the escape key to capslock
+-- paste following code in hammerspoon config file
 -- A variable for the Hyper Mode
 local k = hs.hotkey.modal.new({}, 'F17')
 
+-- Hyper mode - cmd + opt + ctrl + shift + key
 local cmd_opt_ctrl_shift_keys = {
 	['c'] = true,
 	['d'] = true,
@@ -16,13 +20,15 @@ local cmd_opt_ctrl_shift_keys = {
   ['delete'] = true,
 }
 
-local get_direction = {
+-- Hyper mode - Substitute keys for direction
+local direction_keys = {
 	['h'] = 'left',
 	['j'] = 'down',
 	['k'] = 'up',
 	['l'] = 'right'
 }
 
+-- Hyper mode - cmd + shift + key
 local cmd_shift_keys = {
 	['a'] = true,
 	['['] = true,
@@ -36,8 +42,8 @@ local hyper = function(isdown)
     return function()
       k.triggered = true
       local event
-		  if get_direction[key] ~= nil then
-        event = hs.eventtap.event.newKeyEvent( mods, get_direction[key], isdown)
+		  if direction_keys[key] ~= nil then
+        event = hs.eventtap.event.newKeyEvent( mods, direction_keys[key], isdown)
       elseif cmd_shift_keys[key] then
         event = hs.eventtap.event.newKeyEvent( {'cmd', 'shift'}, key, isdown)
       elseif key == 'delete' then
@@ -56,7 +62,8 @@ local hyperUp = hyper(false)
 -- actually bind a key
 local hyperBind = function(key)
   k:bind({}, key, msg, hyperDown(key, {}), hyperUp(key, {}), nil)
-  if get_direction[key] ~= nil then
+  -- bind the direction key with all the modifers that you want
+  if direction_keys[key] ~= nil then
     local modifier_types = {{'alt'}, {'shift'}, {'cmd'}, {'alt','shift'}, {'cmd','shift'}}
     for i, mods in ipairs(modifier_types) do k:bind(mods, key, msg, hyperDown(key, mods), hyperUp(key, mods), nil) end
   end
@@ -66,7 +73,7 @@ end
 local combined_keys = {}
 for k,v in pairs(cmd_opt_ctrl_shift_keys) do table.insert(combined_keys, k) end
 for k,v in pairs(cmd_shift_keys) do table.insert(combined_keys, k) end
-for k,v in pairs(get_direction) do table.insert(combined_keys, k) end
+for k,v in pairs(direction_keys) do table.insert(combined_keys, k) end
 
 for index, key in pairs(combined_keys) do hyperBind(key) end
 
